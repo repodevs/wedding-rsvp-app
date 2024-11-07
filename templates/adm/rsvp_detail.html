@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP Detail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.7.0"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">RSVP Detail</h1>
+
+        <div class="flex flex-wrap gap-4 mb-4">
+            <a href="/adm/rsvp" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Back to RSVP List
+            </a>
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold mb-4">{{ rsvp.name }}</h2>
+            <p class="mb-2"><strong>Attendance:</strong> {{ rsvp.attendance }}</p>
+            <p class="mb-2"><strong>Message:</strong> {{ rsvp.message }}</p>
+            <p class="mb-2"><strong>Created At:</strong> {{ rsvp.created_at }}</p>
+            <div id="status-section">
+                <p class="mb-2"><strong>Status:</strong>
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ 'bg-green-100 text-green-800' if rsvp.is_active else 'bg-red-100 text-red-800' }}">
+                        {{ 'Active' if rsvp.is_active else 'Inactive' }}
+                    </span>
+                </p>
+                <button hx-post="/adm/rsvp-toogle-status/{{ rsvp.id }}"
+                        hx-target="#status-section"
+                        hx-swap="outerHTML"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">
+                    Toggle Status
+                </button>
+            </div>
+        </div>
+
+        <h2 class="text-2xl font-bold mb-4">Comments</h2>
+        {% if comments %}
+            {% for comment in comments %}
+                <div class="bg-white shadow-md rounded-lg p-4 mb-4">
+                    <p class="font-bold">{{ comment.name }}</p>
+                    <p>{{ comment.comment }}</p>
+                    <p class="text-sm text-gray-500">{{ comment.created_at }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No comments yet.</p>
+        {% endif %}
+
+        <h3 class="text-xl font-bold mb-4">Add a Comment</h3>
+        <form action="/adm/comment-add/{{ rsvp.id }}" method="post">
+            <div class="mb-4">
+                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                <input type="text" name="name" id="name" value="FOO & BAR" required class="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500">
+            </div>
+            <div class="mb-4">
+                <label for="comment" class="block text-sm font-medium text-gray-700">Comment</label>
+                <textarea name="comment" id="comment" required rows="4" class="mt-1 p-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500">Terima kasih atas ucapan dan doa restunya 🙏</textarea>
+            </div>
+            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                Submit Comment
+            </button>
+        </form>
+    </div>
+</body>
+</html>

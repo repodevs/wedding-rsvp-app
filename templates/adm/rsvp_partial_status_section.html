@@ -1,0 +1,13 @@
+<div id="status-section">
+    <p class="mb-2"><strong>Status:</strong> 
+        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ 'bg-green-100 text-green-800' if rsvp.is_active else 'bg-red-100 text-red-800' }}">
+            {{ 'Active' if rsvp.is_active else 'Inactive' }}
+        </span>
+    </p>
+    <button hx-post="/adm/rsvp-toogle-status/{{ rsvp.id }}"
+            hx-target="#status-section"
+            hx-swap="outerHTML"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">
+        Toggle Status
+    </button>
+</div>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">RSVP List</h1>
+        <!-- Add statistics section -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-blue-100 p-4 rounded-lg">
+                <h3 class="text-blue-800 font-semibold">Total RSVP</h3>
+                <p class="text-2xl font-bold text-blue-600">{{ total_rsvps }}</p>
+            </div>
+            <div class="bg-green-100 p-4 rounded-lg">
+                <h3 class="text-green-800 font-semibold">Total Hadir</h3>
+                <p class="text-2xl font-bold text-green-600">{{ total_hadir }}</p>
+            </div>
+            <div class="bg-yellow-100 p-4 rounded-lg">
+                <h3 class="text-yellow-800 font-semibold">Total Tidak Hadir</h3>
+                <p class="text-2xl font-bold text-yellow-600">{{ total_no_hadir }}</p>
+            </div>
+            <div class="bg-red-100 p-4 rounded-lg">
+                <h3 class="text-red-800 font-semibold">Total Inactive</h3>
+                <p class="text-2xl font-bold text-red-600">{{ total_inactive }}</p>
+            </div>
+        </div>
+
+        <div class="mt-6 pb-2 flex justify-between items-center">
+            <a href="/adm" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-1 rounded">
+                View Persons List
+            </a>
+            <form action="/adm/rsvp" method="get" class="flex-row items-center">
+                <select name="attendance" class="mr-2 p-2 border rounded">
+                    <option value="">All Attendance</option>
+                    <option value="Hadir" {% if selected_attendance == 'Hadir' %}selected{% endif %}>Hadir</option>
+                    <option value="Tidak Hadir" {% if selected_attendance == 'Tidak Hadir' %}selected{% endif %}>Tidak Hadir</option>
+                    <option value="Kemungkinan Besar Hadir" {% if selected_attendance == 'Kemungkinan Besar Hadir' %}selected{% endif %}>Kemungkinan Besar Hadir</option>
+                    <option value="Kemungkinan Kecil Hadir" {% if selected_attendance == 'Kemungkinan Kecil Hadir' %}selected{% endif %}>Kemungkinan Kecil Hadir</option>
+                </select>
+                <select name="has_last_comment" class="mr-2 mt-1 p-2 border rounded">
+                    <option value="">All Comments</option>
+                    <option value="yes" {% if selected_has_last_comment == 'yes' %}selected{% endif %}>Has Last Comment</option>
+                    <option value="no" {% if selected_has_last_comment == 'no' %}selected{% endif %}>No Last Comment</option>
+                </select>
+                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-1">
+                    Filter
+                </button>
+            </form>
+        </div>
+        <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+            <table class="min-w-full leading-normal">
+                <thead>
+                    <tr>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            ID
+                        </th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Name
+                        </th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Attendance
+                        </th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Message
+                        </th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Last Comment
+                        </th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Created At
+                        </th>
+                        <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rsvp in rsvps %}
+                    <tr class="{% if not rsvp.is_active %}bg-red-100 text-red-800{% else %}bg-white{% endif %}">
+                        <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                            {{ rsvp.id }}
+                        </td>
+                        <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                            {{ rsvp.name }}
+                        </td>
+                        <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                            {{ rsvp.attendance }}
+                        </td>
+                        <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                            {{ rsvp.message }}
+                        </td>
+                        <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                            {{ rsvp.last_comment if rsvp.last_comment else '-' }}
+                        </td>
+                        <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                            {{ rsvp.created_at }}
+                        </td>
+                        <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                            <a href="/adm/rsvp-detail/{{ rsvp.id }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-xs">View Details</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

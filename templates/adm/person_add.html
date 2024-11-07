@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Tamu Undangan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Tambah Tamu Undangan</h1>
+
+            <!-- Error Message Section -->
+            {% if error_message %}
+            <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded" role="alert">
+                <strong class="font-bold">Error!</strong>
+                <span class="block sm:inline">{{ error_message }}</span>
+            </div>
+            {% endif %}
+
+            <form action="/adm/person-add" method="post">
+                <div class="form-group mb-4">
+                    <label for="code" class="block text-gray-700">Code <span class="text-red-500">*</span></label>
+                    <input type="text" id="code" name="code" required value="" 
+                           onfocus="this.value = this.value || Math.random().toString(36).substr(2, 4).toLowerCase()" 
+                           class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="title" class="block text-gray-700">Title</label>
+                    <input type="text" id="title" name="title" placeholder="Isikan Bapak atau Ibu atau Saudara" 
+                           class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="name" class="block text-gray-700">Name <span class="text-red-500">*</span></label>
+                    <input type="text" id="name" name="name" required 
+                           class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="gender" class="block text-gray-700">Gender <span class="text-red-500">*</span></label>
+                    <select id="gender" name="gender" required 
+                            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500">
+                        <option value="">Select gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Submit
+                </button>
+            </form>
+            <div class="actions mt-4">
+                <a href="/adm" class="text-blue-500 hover:underline">Back to List Tamu Undangan</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

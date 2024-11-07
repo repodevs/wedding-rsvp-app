@@ -1,0 +1,48 @@
+version: '3.8' # Docker Compose file version
+
+services:
+  app:
+    build: .
+    ports:
+      - "8125:8125"
+    environment:
+      - RSVP_DATABASE_HOST=db
+      - RSVP_DATABASE_USER=root
+      - RSVP_DATABASE_PASSWORD=toor
+      - RSVP_DATABASE_NAME=rsvp
+    volumes:
+      - .:/app
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - rsvp-network
+    restart: unless-stopped
+
+  db:
+    image: mysql:latest
+    ports:
+      - "13306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=toor
+      - MYSQL_DATABASE=rsvp
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - mysql_config:/etc/mysql/conf.d
+    networks:
+      - rsvp-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  mysql_data:
+  mysql_config:
+
+networks:
+  rsvp-network:
+    driver: bridge

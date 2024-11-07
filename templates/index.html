@@ -1,0 +1,630 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>
+    The Wedding of Foo and Bar
+  </title>
+  <link rel="icon"
+    href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23f76e90" d="M436.4 32c-91 0-168.3 67.9-194.7 161.4C204.6 134.6 144 96 75.6 96H0v24c0 127.9 91.7 232 204.4 232H232v112c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V288h27.6C420.3 288 512 183.9 512 56V32h-75.6zm-232 272c-79.3 0-145.1-69.8-155.1-160h26.2c79.3 0 145.1 69.8 155.1 160h-26.2zm103.2-64h-26.2c10-90.2 75.8-160 155.1-160h26.2c-10 90.2-75.8 160-155.1 160z"/></svg>' />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class', // Enable dark mode
+    }
+  </script>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&amp;display=swap" rel="stylesheet" />
+
+  <style>
+    .great-vibes {
+      font-family: 'Great Vibes', cursive;
+    }
+
+    .poppins {
+      font-family: 'Poppins';
+      font-weight: 400;
+    }
+
+    .font-dancing {
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .divider {
+      border: 0;
+      height: 1px;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0), green, rgba(0, 0, 0, 0));
+      margin: 20px auto;
+      width: 80%;
+    }
+
+    .navbar a {
+      transition: transform 0.2s;
+    }
+
+    .navbar a:active {
+      transform: scale(0.95);
+    }
+
+    @media (max-width: 640px) {
+
+      .minute-label,
+      .second-label {
+        display: block;
+        /* Move to new row */
+      }
+
+      .minute-label {
+        margin-top: 0.5rem;
+        /* Add some spacing if needed */
+      }
+
+      .second-label {
+        margin-top: 0.5rem;
+        /* Add some spacing if needed */
+      }
+    }
+
+    .google-map {
+      padding-bottom: 50%;
+      position: relative;
+    }
+
+    .google-map iframe {
+      height: 100%;
+      width: 100%;
+      left: 0;
+      top: 0;
+      position: absolute;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-400">
+  <!-- main content -->
+  <div id="home" class="container mx-auto px-4 py-8">
+    <!-- header logo -->
+    <div class="text-center">
+      <h1 class="text-5xl text-gray-800 font-extrabold great-vibes">
+        <span class="p-4 text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-blue-600 cursor-move"
+          onclick="document.documentElement.classList.toggle('dark')"> Foo &amp;
+          Bar</span>
+      </h1>
+    </div>
+
+    <!-- section greeting -->
+    <div class="text-center mt-8">
+      <hr class="divider" />
+      <h1 class="text-3xl font-dancing dark:text-white">
+        Assalamu'alaikum Warahmatullahi Wabarakatuh
+      </h1>
+      <p class="text-xl dark:text-gray-400 mt-4 poppins">
+        {% if person %}
+          Dear <mark class="px-2 text-white bg-blue-600 rounded dark:bg-blue-500">{{ person.name }}</mark>
+        {% endif %}
+      </p>
+      <p class="text-xl dark:text-gray-400 mt-4 poppins">
+        Dengan penuh hormat dan kerendahan hati, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk dapat hadir dan
+        bergabung dengan kami dalam merayakan hari bahagia pernikahan kami.
+      </p>
+    </div>
+
+    <!-- section Inspiration -->
+    <div class="text-center mt-8">
+      <hr class="divider" />
+      <h2 class="text-3xl font-dancing dark:text-white">Inspiration</h2>
+      <p class="text-lg mt-4 poppins">
+        “Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia <span class="text-yellow-500">menciptakan pasangan-pasangan
+          untukmu</span> dari jenismu sendiri, agar kamu cenderung dan <span class="text-yellow-500">merasa tenteram
+          kepadanya</span>, dan Dia menjadikan diantaramu <span class="text-yellow-500">rasa kasih dan sayang</span>.
+        Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) <span
+          class="text-yellow-500">bagi kaum yang berpikir</span>”
+        <br />
+        ❨<a href="https://quran.com/30/21" target="_blank" class="text-blue-500">Q.S Ar-Rum 30:21</a>❩
+      </p>
+    </div>
+
+    <!-- section bride and groom -->
+    <div class="text-center mt-8">
+      <hr class="divider" />
+      <h2 class="text-3xl font-dancing dark:text-white">Bride and Groom</h2>
+      <p class="text-lg text-gray-600x mt-4 poppins">
+        Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:
+      </p>
+    </div>
+
+    <div class="flex justify-center mt-8 space-x-6 dark:text-gray-400 poppins">
+      <div class="text-center">
+        <img alt="Photo of Foo Fulanah" class="rounded-full mx-auto" height="100" src="./static/bride.png"
+          width="100" />
+        <p class="great-vibes text-3xl mt-4">
+          <span class="text-yellow-500">Foo</span> Fulanah
+        </p>
+        <p class="mt-2">
+          Putri dari
+        </p>
+        <p>
+          Bapak Lorem
+        </p>
+        <p>
+          Ibu Ipsum
+        </p>
+      </div>
+      <div class="text-center">
+        <img alt="Photo of Bar Fulan" class="rounded-full mx-auto" height="100" src="./static/groom.png"
+          width="100" />
+        <p class="great-vibes text-3xl mt-4">
+          <span class="text-yellow-500">Bar</span> Fulan
+        </p>
+        <p class="mt-2">
+          Putra dari
+        </p>
+        <p>
+          Bapak Dolor
+        </p>
+        <p>
+          Ibu Sit Amet
+        </p>
+      </div>
+    </div>
+
+    <!-- section wedding date -->
+    <div id="wedding_date" class="text-center mt-16 poppins">
+      <hr class="divider" />
+      <h2 class="text-3xl font-dancing dark:text-white">
+        Save the Date
+      </h2>
+      <p class="text-xl mt-4 dark:text-gray-400 pt-4">
+        Pernikahan kami Insya Allah akan dilaksanakan pada:
+      </p>
+      <div class="border border-gray-300 rounded-lg p-4 mt-4 inline-block text-xl">
+        <p><mark class="px-2 text-white bg-blue-600 rounded dark:bg-blue-500">Selasa, 01 Desember 2024</mark></p>
+        <p>Akad: 08.00 - 09.00 WIB</p>
+        <p>Resepsi: 10.00 - 11.30 WIB</p>
+      </div>
+      <!-- section part countdown to wedding date -->
+      <div id="countdown" class="pt-2">
+        <div class="flex flex-wrap justify-center space-x-4 dark:text-gray-400">
+          <div class="text-center">
+            <p id="days" class="text-5xl font-bold"></p>
+            <p class="text-lg">Hari</p>
+          </div>
+          <div class="text-center">
+            <p id="hours" class="text-5xl font-bold"></p>
+            <p class="text-lg">Jam</p>
+          </div>
+          <div class="text-center">
+            <p id="minutes" class="text-5xl font-bold"></p>
+            <p class="text-lg minute-label">Menit</p>
+          </div>
+          <div class="text-center">
+            <p id="seconds" class="text-5xl font-bold"></p>
+            <p class="text-lg second-label">Detik</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- section location -->
+    <div id="location" class="text-center dark:text-gray-400 mt-10 poppins">
+      <hr class="divider" />
+      <h2 class="text-3xl dark:text-white font-dancing">
+        Location
+      </h2>
+      <p class="mt-4 text-xl dark:text-gray-300">
+        Universitas Siber Muhammadiyah
+      </p>
+      <p>
+        Pakuncen, Wirobrajan, Yogyakarta City, Special Region of Yogyakarta 55253
+      </p>
+      <!-- google map widget -->
+      <div class="google-map mt-6">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15811.62903418789!2d110.3510004!3d-7.799643!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a57ca355b5eed%3A0xe9adaabafe0ce5b4!2sUniversitas%20Siber%20Muhammadiyah!5e0!3m2!1sen!2sid!4v1730916390185!5m2!1sen!2sid"
+          width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="mt-4">
+        <a href="https://maps.app.goo.gl/RkxkGQsiZE4rZdNJ7" target="_blank"
+          class="text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded">
+          Lihat Google Maps
+        </a>
+      </div>
+    </div>
+
+    <!-- section gifts -->
+    <div class="text-center dark:text-gray-400 mt-16">
+      <hr class="divider" />
+      <p class="text-3xl font-dancing dark:text-white">
+        Gifts
+      </p>
+      <p>
+        Bagi keluarga dan saudara yang hendak memberi hadiah, kami menyediakan media digital berupa E-wallet untuk
+        kemudahan dalam memberi hadiah untuk hari pernikahan kami.
+      </p>
+      <!-- button show popup e-wallet -->
+      <div class="pt-4">
+        <button class="text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded"
+          onclick="document.getElementById('popup').classList.remove('hidden')">Open E-Wallet</button>
+      </div>
+      <!-- popup e-wallet -->
+      <div id="popup"
+        class="fixed inset-0 bg-black bg-opacity-50 dark:bg-gray-900 dark:bg-opacity-50 flex justify-center items-center hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-4 w-auto">
+          <h2 class="text-lg font-bold dark:text-white">Bank Information</h2>
+          <p class="dark:text-gray-400">Bank SiberMu 123456789 a/n FOO FULANAH</p>
+          <button class="text-white bg-blue-500 hover:bg-blue-700 font-bold py-1 px-2 rounded mt-2x"
+            onclick="copyToClipboard('123456789')">Salin No Rekening <span class="italic">FOO</span></button>
+
+          <p class="dark:text-gray-400 pt-2">Bank SiberMu 987654321 a/n BAR FULAN</p>
+          <button class="text-white bg-blue-500 hover:bg-blue-700 font-bold py-1 px-2 rounded mt-2x"
+            onclick="copyToClipboard('987654321')">Salin No Rekening <span class="italic">BAR</span></button>
+
+          <h2 class="text-lg font-bold mb-2 pt-2 dark:text-white">Address</h2>
+          <p class="dark:text-gray-400">Universitas Siber Muhammadiyah - Yogyakarta</p>
+
+          <!-- close popup dialog -->
+          <div class="pt-4">
+            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded absolutex top-2 right-2"
+              onclick="document.getElementById('popup').classList.add('hidden')">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- section rsvp and wedding wish -->
+    <div id="rsvp" class="text-center dark:text-gray-400 mt-16">
+      <hr class="divider" />
+      <p class="text-3xl font-dancing dark:text-white">
+        RSVP &amp; Pesan
+      </p>
+      <p>
+        Kirim doa dan ucapan selamat untuk kami.
+      </p>
+
+      <div class="bg-white dark:bg-gray-900 rounded-lg w-auto mx-auto md:w-1/2 lg:w-2/3 xl:w-2/4">
+        <div class="max-w-2xl mx-auto">
+          <!-- form action rsvp -->
+          <form id="form_rsvp" hx-post="/rsvp-confirm/" hx-target="#response" hx-swap="afterbegin"
+            onsubmit="showThankYouMessage(event)" class="space-y-2 dark:text-gray-400">
+            <!-- field name -->
+            <div>
+              <label class="block text-gray-700 dark:text-gray-200" for="name">
+                Nama
+              </label>
+              <input class="w-full p-2 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded" id="name"
+                name="name" placeholder="Isikan Nama Anda" type="text"
+                value="{% if person %}{{ person.name.upper() }}{% endif %}" required />
+            </div>
+            <!-- field pesan -->
+            <div>
+              <label class="block text-gray-700 dark:text-gray-200" for="message">
+                Pesan
+              </label>
+              <textarea class="w-full p-2 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded"
+                id="message" name="message" placeholder="(Opsional) Berikan Ucapan Dan Doa"></textarea>
+            </div>
+            <!-- field confirmation -->
+            <div>
+              <label class="block text-gray-700 dark:text-gray-200" for="attendance">
+                Konfirmasi Kehadiran
+              </label>
+              <select class="w-full p-2 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded"
+                id="attendance" name="attendance" required>
+                <option value="Hadir">
+                  Hadir
+                </option>
+                <option value="Kemungkinan Besar Hadir">
+                  Kemungkinan Besar Hadir
+                </option>
+                <option value="Kemungkinan Kecil Hadir">
+                  Kemungkinan Kecil Hadir
+                </option>
+                <option value="Tidak Hadir">
+                  Tidak Hadir
+                </option>
+              </select>
+            </div>
+            <!-- button submit -->
+            <div>
+              <button
+                class="px-4 py-2 text-white bg-blue-500 hover:bg-blue-700 font-bold border border-gray-500 dark:border-gray-600 rounded"
+                type="submit">
+                Kirim
+              </button>
+            </div>
+          </form>
+
+          <p class="pt-2">
+            Terima kasih atas ucapan dan doa Anda.
+          </p>
+
+          <!-- section part list pesan -->
+          <div
+            class="mt-8 space-y-4 overflow-y-auto {% if rsvps %} h-96 {%endif%} dark:bg-gray-800x dark:border-gray-800 py-4 pr-4">
+            <div id="response">
+              <!-- example with reply -->
+              {% for rsvp in rsvps %}
+              <div class="flex items-start space-x-4 pb-2">
+                <img alt="Rekan Pengantin" class="w-12 h-12 rounded-full" height="50"
+                  src="https://placehold.co/50x50/EEE/31343C?font=oswald&text={{ rsvp.name[0] }}" width="50"
+                  loading="lazy" />
+                <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow dark:shadow-gray-600">
+                  <div class="flex items-center space-x-2">
+                    <!-- field name -->
+                    <span class="text-left font-semibold dark:text-gray-200">
+                      {{ rsvp.name }}
+                    </span>
+                    <!-- field attendance confirmation -->
+                    {% if 'Tidak' in rsvp.attendance %}
+                    <span class="text-sm text-gray-500 dark:text-gray-400">
+                      <i class="fas fa-times-circle">
+                      </i>
+                      {{ rsvp.attendance }}
+                    </span>
+                    {% elif 'Kecil' in rsvp.attendance %}
+                    <span class="text-sm text-yellow-500 dark:text-yellow-600">
+                      <i class="fas fa-hourglass-end">
+                      </i>
+                      {{ rsvp.attendance }}
+                    </span>
+                    {% else %}
+                    <span class="text-sm text-green-500 dark:text-green-600">
+                      <i class="fas fa-check-circle">
+                      </i>
+                      {{ rsvp.attendance }}
+                    </span>
+                    {% endif %}
+                  </div>
+                  <p class="text-left text-xs text-gray-400 dark:text-gray-500" title="{{ rsvp.created_at }}">
+                    {{ rsvp.timeago }}
+                  </p>
+                  <p class="text-left dark:text-gray-400">
+                    {{ rsvp.message }}
+                  </p>
+                  <!-- section part reply (from us) -->
+                  {% if rsvp.comments %}
+                  <div id="comments-section-{{ rsvp.id }}" class="ml-2 mt-2">
+                    {% for comment in rsvp.comments %}
+                    <div class="flex items-start space-x-4 pb-1">
+                      <img alt="Foo Bar" class="w-8 h-8 rounded-full" height="30"
+                        src="https://placehold.co/30x30/EEE/31343C?font=oswald&text=Foo\nBar" width="30" />
+                      <div class="bg-gray-100 dark:bg-gray-700 p-2 rounded-lg shadow dark:shadow-gray-600">
+                        <div class="flex items-center space-x-2">
+                          <!-- field name -->
+                          <span class="font-semibold dark:text-gray-200 text-sm">
+                            {{ comment.name }}
+                          </span>
+                          <!-- field created_at -->
+                          <p class="text-xs text-gray-400 dark:text-gray-500" title="{{ comment.created_at }}">
+                            <!-- 5 menit yang lalu -->
+                            {{ comment.timeago }}
+                          </p>
+                        </div>
+                        <!-- field message -->
+                        <p class="text-sm dark:text-gray-400">
+                          {{ comment.comment }}
+                        </p>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  {% endif %}
+
+                </div>
+              </div>
+              {% endfor %}
+
+            </div>
+          </div>
+
+          <!-- Thank You Modal -->
+          <div id="thankYouModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+              <h2 class="text-lg font-bold mb-4">Terima Kasih!</h2>
+              <p>Pesan Anda telah berhasil dikirim.</p>
+              <button onclick="closeThankYouModal()"
+                class="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Tutup</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- section closing -->
+    <div class="text-center dark:text-gray-400 mt-8 text-sm">
+      <hr class="divider" />
+      <p class="text-3xl font-dancing dark:text-white">
+        Wassalamu'alaikum Warahmatullahi Wabarakatuh
+      </p>
+      <p class="mt-4">
+        Kami yang berbahagia,
+      </p>
+      <p>
+        Kel. Bapak Lorem &amp; Ibu Ipsum
+      </p>
+      <p>
+        dan
+      </p>
+      <p>
+        Kel. Bapak Dolor &amp; Ibu Sit Amet
+      </p>
+    </div>
+
+  </div> <!-- end of main content -->
+
+  <!-- navbar mobile -->
+  <section id="bottom-navigation"
+    class="lg:hidden block fixed inset-x-0 bottom-0 z-50 bg-white dark:bg-gray-600 dark:text-white shadow">
+    <div id="tabs" class="flex justify-between">
+      <!-- Home -->
+      <a class="w-full focus:text-yellow-500 hover:text-yellow-500 justify-center inline-block text-center pt-2 pb-1"
+        href="#home"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
+          class="mx-auto m-1 sm:mx-auto sm:m-2" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M258.5 104.1c-1.5-1.2-3.5-1.2-5 0l-156 124.8c-.9.8-1.5 1.9-1.5 3.1v230c0 1.1.9 2 2 2h108c1.1 0 2-.9 2-2V322c0-1.1.9-2 2-2h92c1.1 0 2 .9 2 2v140c0 1.1.9 2 2 2h108c1.1 0 2-.9 2-2V232c0-1.2-.6-2.4-1.5-3.1l-156-124.8z">
+          </path>
+          <path
+            d="M458.7 204.2l-189-151.4C265.9 49.7 261 48 256 48s-9.9 1.7-13.7 4.8L160 119.7V77.5c0-1.1-.9-2-2-2H98c-1.1 0-2 .9-2 2v92.2l-42.7 35.1c-3.1 2.5-5.1 6.2-5.3 10.2-.2 4 1.3 7.9 4.1 10.7 2.6 2.6 6.1 4.1 9.9 4.1 3.2 0 6.3-1.1 8.8-3.1l183.9-148c.5-.4.9-.4 1.3-.4s.8.1 1.3.4l183.9 147.4c2.5 2 5.6 3.1 8.8 3.1 3.7 0 7.2-1.4 9.9-4.1 2.9-2.8 4.4-6.7 4.2-10.7-.3-4-2.2-7.7-5.4-10.2z">
+          </path>
+        </svg>
+        <span class="tab tab-home block text-xs">Home</span>
+      </a>
+
+      <!-- Wedding Date -->
+      <a class="w-full focus:text-yellow-500 hover:text-yellow-500 justify-center inline-block text-center pt-2 pb-1"
+        href="#wedding_date"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
+          class="mx-auto m-1 sm:mx-auto sm:m-2" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M424 96h-40v24c0 4.4-3.6 8-8 8h-16c-4.4 0-8-3.6-8-8V96H160v24c0 4.4-3.6 8-8 8h-16c-4.4 0-8-3.6-8-8V96H88c-22 0-40 18-40 40v272c0 22 18 40 40 40h336c22 0 40-18 40-40V136c0-22-18-40-40-40zm8 300c0 11-9 20-20 20H100c-11 0-20-9-20-20V216c0-4.4 3.6-8 8-8h336c4.4 0 8 3.6 8 8v180zM160 72c0-4.4-3.6-8-8-8h-16c-4.4 0-8 3.6-8 8v24h32V72zM384 72c0-4.4-3.6-8-8-8h-16c-4.4 0-8 3.6-8 8v24h32V72z">
+          </path>
+        </svg>
+        <span class="tab tab-kategori block text-xs">Wedding Date</span>
+      </a>
+
+      <!-- Location -->
+      <a class="w-full focus:text-yellow-500 hover:text-yellow-500 justify-center inline-block text-center pt-2 pb-1"
+        href="#location"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
+          class="mx-auto m-1 sm:mx-auto sm:m-2" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M512 256c0 141.38-114.62 256-256 256S0 397.38 0 256 114.62 0 256 0s256 114.62 256 256zm-64 0c0-70.69-57.31-128-128-128s-128 57.31-128 128 57.31 128 128 128 128-57.31 128-128zm-128-256c0-44.183 35.817-80 80-80s80 35.817 80 80-35.817 80-80 80-80-35.817-80-80z">
+          </path>
+        </svg><span class="tab tab-kategori block text-xs">Location</span>
+      </a>
+
+      <!-- RSVP -->
+      <a class="w-full focus:text-yellow-500 hover:text-yellow-500 justify-center inline-block text-center pt-2 pb-1"
+        href="#rsvp">
+        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
+          class="mx-auto m-1 sm:mx-auto sm:m-2" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0l57.4-43c23.9-59.8 79.7-103.3 146.3-109.8l13.9-10.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176 0 384c0 35.3 28.7 64 64 64l296.2 0C335.1 417.6 320 378.5 320 336c0-5.6 .3-11.1 .8-16.6l-26.4 19.8zM640 336a144 144 0 1 0 -288 0 144 144 0 1 0 288 0zm-76.7-43.3c6.2 6.2 6.2 16.4 0 22.6l-72 72c-6.2 6.2-16.4 6.2-22.6 0l-40-40c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0L480 353.4l60.7-60.7c6.2-6.2 16.4-6.2 22.6 0z">
+          </path>
+        </svg>
+        <span class="tab tab-kategori block text-xs">RSVP</span>
+      </a>
+
+      <!-- Dark mode toogle -->
+      <a class="w-full focus:text-yellow-500 hover:text-yellow-500 justify-center inline-block text-center pt-2 pb-1"
+        hrefx="#gifts" onclick="document.documentElement.classList.toggle('dark')"><svg stroke="currentColor"
+          fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="mx-auto m-1 sm:mx-auto sm:m-2" height="1em"
+          width="1em" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M256 96c38.4 0 73.7 13.5 101.3 36.1l-32.6 32.6c-4.6 4.6-5.9 11.5-3.5 17.4s8.3 9.9 14.8 9.9l112 0c8.8 0 16-7.2 16-16l0-112c0-6.5-3.9-12.3-9.9-14.8s-12.9-1.1-17.4 3.5l-34 34C363.4 52.6 312.1 32 256 32c-10.9 0-21.5 .8-32 2.3l0 64.9c10.3-2.1 21-3.2 32-3.2zM132.1 154.7l32.6 32.6c4.6 4.6 11.5 5.9 17.4 3.5s9.9-8.3 9.9-14.8l0-112c0-8.8-7.2-16-16-16L64 48c-6.5 0-12.3 3.9-14.8 9.9s-1.1 12.9 3.5 17.4l34 34C52.6 148.6 32 199.9 32 256c0 10.9 .8 21.5 2.3 32l64.9 0c-2.1-10.3-3.2-21-3.2-32c0-38.4 13.5-73.7 36.1-101.3zM477.7 224l-64.9 0c2.1 10.3 3.2 21 3.2 32c0 38.4-13.5 73.7-36.1 101.3l-32.6-32.6c-4.6-4.6-11.5-5.9-17.4-3.5s-9.9 8.3-9.9 14.8l0 112c0 8.8 7.2 16 16 16l112 0c6.5 0 12.3-3.9 14.8-9.9s1.1-12.9-3.5-17.4l-34-34C459.4 363.4 480 312.1 480 256c0-10.9-.8-21.5-2.3-32zM256 416c-38.4 0-73.7-13.5-101.3-36.1l32.6-32.6c4.6-4.6 5.9-11.5 3.5-17.4s-8.3-9.9-14.8-9.9L64 320c-8.8 0-16 7.2-16 16l0 112c0 6.5 3.9 12.3 9.9 14.8s12.9 1.1 17.4-3.5l34-34C148.6 459.4 199.9 480 256 480c10.9 0 21.5-.8 32-2.3l0-64.9c-10.3 2.1-21 3.2-32 3.2z">
+          </path>
+        </svg>
+        <span class="tab tab-kategori block text-xs">Dark/Light</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- script utilities -->
+  <script>
+    const countdown = document.getElementById('countdown');
+    const days = document.getElementById('days');
+    const hours = document.getElementById('hours');
+    const minutes = document.getElementById('minutes');
+    const seconds = document.getElementById('seconds');
+
+    const weddingDate = new Date('2024-12-01T08:00:00.000+07:00');
+
+    function updateCountdown() {
+      let now = new Date();
+      const diff = weddingDate.getTime() - now.getTime();
+
+      if (diff < 0) {
+        countdown.innerHTML = '<div class="text-center text-xl"><mark class="px-2 text-white bg-red-600 rounded dark:bg-red-500">Walimah pernikahan telah selesai</mark></div>';
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      days.textContent = d.toString().padStart(2, '0');
+      hours.textContent = h.toString().padStart(2, '0');
+      minutes.textContent = m.toString().padStart(2, '0');
+      seconds.textContent = s.toString().padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+
+  <script>
+    // Smooth scroll behavior for all anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent default anchor click behavior
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+
+        // Scroll to the target element
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+
+        // Remove 'visible' class from all sections
+        document.querySelectorAll('.fade-in').forEach(section => {
+          section.classList.remove('visible');
+        });
+
+        // Add fade-in effect to the target element
+        targetElement.classList.add('visible');
+      });
+    });
+
+    // Fade-in effect on page load for all sections
+    window.addEventListener('load', function () {
+      document.querySelectorAll('.fade-in').forEach(section => {
+        section.classList.add('visible');
+      });
+    });
+  </script>
+
+  <script>
+    function copyToClipboard(text) {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Nomor Rekening berhasil disalin');
+        });
+      } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('Nomor Rekening berhasil disalin');
+      }
+    }
+
+    function showThankYouMessage(event) {
+      event.preventDefault();
+      // Show the thank you modal
+      document.getElementById("thankYouModal").classList.remove("hidden");
+    }
+
+    function closeThankYouModal() {
+      document.getElementById("thankYouModal").classList.add("hidden");
+      const form = document.getElementById('form_rsvp');
+      form.reset();
+    }
+  </script>
+
+  <script src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js"></script>
+</body>
+</html>
